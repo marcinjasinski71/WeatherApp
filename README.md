@@ -11,4 +11,4 @@ Planning to add "Find my location" feature.
 
 
 Technologies used:
-Simple HTML, simple CSS, JavaScript
+HTML, CSS, JavaScript
