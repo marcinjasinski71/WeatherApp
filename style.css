@@ -56,6 +56,15 @@ button:hover {
 	background-color: #ddd;
 }
 
+.findBtn {
+	background-color: #8ba061;
+	margin-left: 100px;
+}
+.map-link {
+	/* display: none; to schowamy */
+	text-align: center;
+}
+
 .wrapper {
 	width: 800px;
 	/* padding: 5px 10px; */
