@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,CAAC,CAAC;EACD,UAAU,EAAE,UAAU;CACtB",
+    "sources": [
+        "../../COKOLWIEKelo/scss/style.scss"
+    ],
+    "names": [],
+    "file": "style.css"
+}
