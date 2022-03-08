@@ -8,3 +8,7 @@ WeatherApp created by Marcin Jasiński
 > 2. Click send to check weather in your city !
 
 Planning to add "Find my location" feature. 
+
+
+Technologies used:
+Simple HTML, simple CSS, JavaScript
