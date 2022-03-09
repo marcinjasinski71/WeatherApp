@@ -6,14 +6,72 @@ const photo = document.querySelector('.photo');
 const weather = document.querySelector('.weather');
 const temperature = document.querySelector('.temperature');
 const humidity = document.querySelector('.humidity');
+const cityInputName = document.querySelector(`.city-input-name`);
 
 const API_LINK = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const API_KEY = '&appid=062efb94fffe352e33ec097ef1717620';
 const API_UNITS = '&units=metric';
 
+// geo
+
+// --getweather
 const getWeather = () => {
-	const city = input.value || `London`;
+	const city = input.value || `new york`;
 	const URL = API_LINK + city + API_KEY + API_UNITS;
+
+	// koordy z api
+	function getCoordintes() {
+		const options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0,
+		};
+
+		function success(pos) {
+			const crd = pos.coords;
+			const lat = crd.latitude.toString();
+			const lng = crd.longitude.toString();
+			const coordinates = [lat, lng];
+			console.log(`Latitude: ${lat}, Longitude: ${lng}`);
+			getCity(coordinates);
+			return;
+		}
+
+		function error(err) {
+			console.warn(`ERROR(${err.code}): ${err.message}`);
+		}
+
+		navigator.geolocation.getCurrentPosition(success, error, options);
+	}
+
+	function getCity(coordinates) {
+		const xhr = new XMLHttpRequest();
+		const lat = coordinates[0];
+		const lng = coordinates[1];
+
+		xhr.open(
+			'GET',
+			'https://us1.locationiq.com/v1/reverse.php?key=pk.6a2840edeab3ef01449fe0440d3fa81e&lat=' +
+				lat +
+				'&lon=' +
+				lng +
+				'&format=json',
+			true
+		);
+		xhr.send();
+		xhr.onreadystatechange = processRequest;
+		xhr.addEventListener('readystatechange', processRequest, false);
+
+		function processRequest(e) {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				const response = JSON.parse(xhr.responseText);
+				const cityName = response.address.city;
+				console.log(cityName);
+				return;
+			}
+		}
+	}
+	getCoordintes();
 
 	axios
 		.get(URL)
@@ -26,7 +84,6 @@ const getWeather = () => {
 			cityName.textContent = res.data.name;
 			temperature.textContent = Math.round(temp) + '°C';
 			humidity.textContent = hum + '%';
-
 			warning.textContent = ``;
 			input.value = ``;
 
@@ -49,6 +106,8 @@ const getWeather = () => {
 		.catch(() => (warning.textContent = `Wpisz poprawną nazwe miasta !`));
 };
 
+// ==============================================
+// enter jako event wywolujacy getWeather
 const enterCheck = e => {
 	if (e.key === 'Enter') {
 		getWeather();
