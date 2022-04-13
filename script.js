@@ -12,8 +12,6 @@ const API_LINK = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const API_KEY = '&appid=062efb94fffe352e33ec097ef1717620';
 const API_UNITS = '&units=metric';
 
-const myCity = cityName;
-
 // --getweather
 const getWeather = () => {
 	const city = input.value || 'Warsaw';
@@ -62,16 +60,17 @@ const getWeather = () => {
 		xhr.onreadystatechange = processRequest;
 		xhr.addEventListener('readystatechange', processRequest, false);
 
-		function processRequest(e) {
+		function processRequest(_e) {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				const response = JSON.parse(xhr.responseText);
 				const cityName = response.address.city;
+				myCity = cityName;
 				console.log(cityName);
-				myCity.textContent = cityName;
-				return;
+				// return cityName;
 			}
 		}
 	}
+
 	getCoordintes();
 
 	axios
