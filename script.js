@@ -104,7 +104,7 @@ const getWeather = () => {
 				photo.setAttribute(`src`, `./img/unknown.png`);
 			}
 		})
-		.catch(() => (warning.textContent = `Wpisz poprawną nazwe miasta !`));
+		.catch(() => (warning.textContent = `Please enter valid city name !`));
 };
 
 // ==============================================
