@@ -12,11 +12,11 @@ const API_LINK = 'https://api.openweathermap.org/data/2.5/weather?q=';
 const API_KEY = '&appid=062efb94fffe352e33ec097ef1717620';
 const API_UNITS = '&units=metric';
 
-// geo
+const myCity = cityName;
 
 // --getweather
 const getWeather = () => {
-	const city = input.value || `new york`;
+	const city = input.value || 'Warsaw';
 	const URL = API_LINK + city + API_KEY + API_UNITS;
 
 	// koordy z api
@@ -67,6 +67,7 @@ const getWeather = () => {
 				const response = JSON.parse(xhr.responseText);
 				const cityName = response.address.city;
 				console.log(cityName);
+				myCity.textContent = cityName;
 				return;
 			}
 		}
